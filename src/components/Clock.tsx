@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-const Clock = () => {
+interface Props {
+  className?: string;
+}
+
+const Clock = ({ className }: Props) => {
   const [hour, setHour] = useState(0);
   const [minute, setMinute] = useState(0);
   const [isPm, setIsPm] = useState(false);
+
+  const hourText = `${hour}`.padStart(2, "0");
+  const minuteText = `${minute}`.padStart(2, "0");
 
   useEffect(() => {
     updateTime();
@@ -20,13 +28,36 @@ const Clock = () => {
   };
 
   return (
-    <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <span>{hour}</span>:<span>{minute}</span>
+    <div className={className}>
+      <div className="clockContainer">
+        <div className="clockContent">
+          <span>{`${hourText}:${minuteText}`}</span>
+          <span>{isPm ? "P.M." : "A.M."}</span>
+        </div>
       </div>
-      <span>{isPm ? "P.M." : "A.M."}</span>
     </div>
   );
 };
 
-export default Clock;
+const StyledClock = styled(Clock)`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  .clockContainer {
+    align-items: center;
+    border: thick double #fff;
+    border-radius: 80px;
+    display: flex;
+    height: 120px;
+    justify-content: center;
+    width: 120px;
+    .clockContent {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+`;
+
+export default StyledClock;

@@ -1,22 +1,28 @@
 import React from "react";
+import styled from "styled-components";
 
 import type { ClockInHistoryRecord } from "../store/clockIn/types";
 
 interface Props {
+  className?: string;
   clockInHistory: ClockInHistoryRecord[];
 }
 
-const ClockInHistory = ({ clockInHistory }: Props) => {
+const ClockInHistory = ({ className, clockInHistory }: Props) => {
   const renderHistory = (history: ClockInHistoryRecord) => {
     const { locationInfo, status, timestamp } = history;
     const clockInDate = new Date(timestamp);
-    const dateText= `${clockInDate.getMonth()}/${clockInDate.getDate()} @ ${clockInDate.getHours()}:${clockInDate.getMinutes()}`;
+    const monthText = `${clockInDate.getMonth()}`.padStart(2, "0");
+    const dateText = `${clockInDate.getDate()}`.padStart(2, "0");
+    const hoursText = `${clockInDate.getHours()}`.padStart(2, "0");
+    const minutesText = `${clockInDate.getMinutes()}`.padStart(2, "0");
+    const dateTimeText = `${monthText}/${dateText} @ ${hoursText}:${minutesText}`;
     const statusText = status === "clockIn" ? "Clock In" : "Clock Out";
 
     return (
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <span>{dateText}</span>
+      <div className="clockInHistoryRow" key={timestamp}>
+        <div className="clockInHistoryDateStatus">
+          <span>{dateTimeText}</span>
           <span>{statusText}</span>
         </div>
         <span>{locationInfo}</span>
@@ -25,13 +31,29 @@ const ClockInHistory = ({ clockInHistory }: Props) => {
   };
 
   return (
-    <div>
-      <span>Recent clocking history</span>
-      <div style={{ display: "flex", flexDirection: "column" }}>
+    <div className={className}>
+      <h3>Recent clocking history</h3>
+      <div className="clockInHistoryContainer">
         {clockInHistory.map(renderHistory)}
       </div>
     </div>
   );
 };
 
-export default ClockInHistory;
+const StyledClockInHistory = styled(ClockInHistory)`
+  .clockInHistoryContainer {
+    display: flex;
+    flex-direction: column;
+    .clockInHistoryRow {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 24px;
+      .clockInHistoryDateStatus {
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
+`;
+
+export default StyledClockInHistory;

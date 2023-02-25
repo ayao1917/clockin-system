@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 import { LOCAL_STORAGE_KEYS } from "../constants/localStorage";
+
+interface Props {
+  className?: string;
+}
 
 export interface OfficeSetting {
   latitude: number;
@@ -9,7 +14,7 @@ export interface OfficeSetting {
   maxDistance: number;
 }
 
-const PageSetting = () => {
+const PageSetting = ({ className }: Props) => {
   const [clockinRange, setClockinRange] = useState(0);
   const [latitude, setLatitude] = useState("0");
   const [longitude, setLongitude] = useState("0");
@@ -77,50 +82,97 @@ const PageSetting = () => {
   };
 
   return (
-    <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
-      <div style={{ display: "flex", width: "100%" }}>
+    <div className={className}>
+      <div className="headerContainer">
         <Link to="/">Home</Link>
       </div>
       <h2>Settings</h2>
-      <form onSubmit={onFormSubmit} style={{ width: "540px" }}>
-        <h3>Set clockIn range</h3>
-        <hr style={{ borderTop: "1px solid #bbb", width: "100%" }} />
-        <div>
-          <label htmlFor="clockinRange">Range in KM</label>
-          <input
-            id="clockinRange"
-            max="20"
-            min="0"
-            onChange={onClockinRangeChange}
-            type="range"
-            value={clockinRange}
-          />
-          <span>{`${clockinRange} KM`}</span>
+      <form className="settingForm" onSubmit={onFormSubmit}>
+        <div className="formGroup">
+          <h3 className="formGroupHeader">Set clockIn range</h3>
+          <hr className="divider" />
+          <div className="inputGroup">
+            <label htmlFor="clockinRange">Range in KM</label>
+            <input
+              id="clockinRange"
+              max="20"
+              min="0"
+              onChange={onClockinRangeChange}
+              type="range"
+              value={clockinRange}
+            />
+            <span>{`${clockinRange} KM`}</span>
+          </div>
         </div>
-        <h3>Set office location</h3>
-        <hr style={{ borderTop: "1px solid #bbb", width: "100%" }} />
-        <div>
-          <label htmlFor="latitude">latitude</label>
-          <input
-            id="latitude"
-            onChange={onLatitudeChange}
-            type="number"
-            value={latitude}
-          />
+        <div className="formGroup">
+          <h3 className="formGroupHeader">Set office location</h3>
+          <hr className="divider" />
+          <div className="inputGroup">
+            <label htmlFor="latitude">latitude</label>
+            <input
+              id="latitude"
+              onChange={onLatitudeChange}
+              type="number"
+              value={latitude}
+            />
+          </div>
+          <div className="inputGroup">
+            <label htmlFor="longitude">longitude</label>
+            <input
+              id="longitude"
+              onChange={onLongitudeChange}
+              type="number"
+              value={longitude}
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="longitude">longitude</label>
-          <input
-            id="longitude"
-            onChange={onLongitudeChange}
-            type="number"
-            value={longitude}
-          />
+        <div className="formFooter">
+          <input className="submitButtom" type="submit" value={"Save"} />
         </div>
-        <input type="submit" value={"Save"} />
       </form>
     </div>
   );
 };
 
-export default PageSetting;
+const StyledPageSetting = styled(PageSetting)`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  .headerContainer {
+    display: flex;
+    padding: 8px;
+    width: 100%;
+  }
+  .settingForm {
+    width: 540px;
+    .formGroup {
+      margin-bottom: 24px;
+      .formGroupHeader {
+        margin-bottom: 4px
+      }
+      .divider {
+        border-top: 1px solid #bbb;
+        width: 100%;
+      }
+      .inputGroup {
+        margin-bottom: 16px;
+        label {
+          margin-right: 8px;
+        }
+      }
+    }
+    .formFooter {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      .submitButtom {
+        border: none;
+        border-radius: 60px;
+        height: 120px;
+        width: 120px;
+      }
+    }
+  }
+`;
+
+export default StyledPageSetting;

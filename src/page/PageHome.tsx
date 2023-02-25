@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from "styled-components";
 
 import Clock from '../components/Clock';
 import ClockInButton from '../components/ClockInButton';
@@ -14,7 +15,11 @@ import { calculateDistance } from '../utils/location';
 import type { OfficeSetting } from './PageSetting';
 import type { ClockInHistoryRecord } from "../store/clockIn/types";
 
-const PageHome = () => {
+interface Props {
+  className?: string;
+}
+
+const PageHome = ({ className }: Props) => {
   const dispatch = useDispatch();
   const location = useSelector(selectLocation);
   const [officeSetting, setOfficeSetting] = useState<OfficeSetting | null>(null);
@@ -67,20 +72,20 @@ const PageHome = () => {
   };
 
   return (
-    <div style={{ alignItems: "center", display: "flex", flexDirection: "column", height: "100%", justifyContent: "center", width: "100%" }}>
-      <div style={{ display: "flex", flexDirection: "row-reverse", width: "100%" }}>
+    <div className={className}>
+      <div className="headerContainer">
         <Link to="/setting">Settings</Link>
       </div>
-      <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
-        <div style={{ alignItems: "center", display: "flex", flexDirection: "column" }}>
-          <span>{gpsStatus}</span>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+      <div className="clockInPanelContainer">
+        <div className="locationInfoContainer">
+          <h3>{gpsStatus}</h3>
+          <div className="locationInfoRow">
+            <div className="locationInfoContent">
               <span>Current position</span>
               <span>{`Latitude: ${latitude}`}</span>
               <span>{`Longtitude: ${longitude}`}</span>
             </div>
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="locationInfoContent">
               <UserStatus
                 distance={distance}
                 location={location}
@@ -89,8 +94,11 @@ const PageHome = () => {
             </div>
           </div>
         </div>
-        <Clock />
-        <ClockInHistory clockInHistory={storedHistory} />
+        <Clock className="clockInPanelUnit" />
+        <ClockInHistory
+          className="clockInPanelUnit"
+          clockInHistory={storedHistory}
+        />
       </div>
       <ClockInButton
         clockInHistory={storedHistory}
@@ -102,6 +110,43 @@ const PageHome = () => {
   );
 };
 
+const StyledPageHome = styled(PageHome)`
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+  .headerContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    padding: 8px;
+    width: 100%;
+  }
+  .clockInPanelContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    .locationInfoContainer {
+      align-items: center;
+      display: flex;
+      flex: 1 1 0;
+      flex-direction: column;
+      .locationInfoRow {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        .locationInfoContent {
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+    .clockInPanelUnit {
+      flex: 1 1 0;
+    }
+  }
+`;
 
-
-export default PageHome;
+export default StyledPageHome;

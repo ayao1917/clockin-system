@@ -1,15 +1,21 @@
 import React from "react";
+import styled from "styled-components";
 
 interface Props {
   children: React.ReactElement;
+  className?: string;
 }
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children, className }: Props) => {
   return (
-    <div style={{ margin: "16px" }}>
+    <div className={className}>
       {children}
     </div>
   );
 };
 
-export default Layout;
+const StyledLayout = styled(Layout)`
+  margin: 16px;
+`;
+
+export default StyledLayout;

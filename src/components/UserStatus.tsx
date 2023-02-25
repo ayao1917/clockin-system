@@ -32,7 +32,7 @@ const UserStatus = ({ distance, location, settings }: Props) => {
     return (
       <>
         <span>You</span>
-        <span>Arrived.</span>
+        <span>Arrived</span>
       </>
     );
   }
