@@ -1,16 +1,16 @@
 import React from "react";
 
-import Home from "../page/Home";
-import Search from "../page/Search";
+import PageHome from "../page/PageHome";
+import PageSetting from "../page/PageSetting";
 
 const routePath = {
   home: "/",
-  search: "/search",
+  setting: "/setting",
 };
 
 const publicRoutes = [
-  { component: <Home />, path: routePath.home },
-  { component: <Search />, path: routePath.search },
+  { component: <PageHome />, path: routePath.home },
+  { component: <PageSetting />, path: routePath.setting },
 ];
 
 export { routePath, publicRoutes };

@@ -6,7 +6,7 @@ interface Props {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div style={{ margin: "16px", minHeight: "100vh", minWidth: "100vw" }}>
+    <div style={{ margin: "16px" }}>
       {children}
     </div>
   );

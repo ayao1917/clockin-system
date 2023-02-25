@@ -3,7 +3,7 @@ import axios from "axios";
 import qs from "qs";
 import { all, fork } from "redux-saga/effects"
 
-import searchSaga from "./search/saga";
+import locationSaga from "./location/saga";
 
 import type { Method } from "axios";
 
@@ -46,6 +46,6 @@ export const initAxios = (store: ToolkitStore) => {
 export default function* rootSaga() {
   yield all([
     // public
-    fork(searchSaga),
+    fork(locationSaga),
   ]);
 }
