@@ -1,19 +1,21 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from 'react-i18next';
+import styled from "styled-components";
 
 import { selectLocationInfo } from "../store/location/slice";
 
 import type { ClockInHistoryRecord } from "../store/clockIn/types";
 
 interface Props {
+  className?: string;
   clockInHistory: ClockInHistoryRecord[];
   distance: number | null;
   maxDistance: number | null;
   onUpdate: (newHistory: ClockInHistoryRecord[]) => void;
 }
 
-const ClockInButton = ({ clockInHistory, distance, maxDistance, onUpdate }: Props) => {
+const ClockInButton = ({ className, clockInHistory, distance, maxDistance, onUpdate }: Props) => {
   const locationInfo = useSelector(selectLocationInfo);
   const { t } = useTranslation();
 
@@ -21,6 +23,7 @@ const ClockInButton = ({ clockInHistory, distance, maxDistance, onUpdate }: Prop
   const inRange = distance && maxDistance && maxDistance > distance;
   const buttonDisabled = !distance || !maxDistance || !inRange;
   const buttonText = inRange ? (shouldClockIn ? t("Clock In") : t("Clock Out")) : t("Out Of Range");
+  const buttonClass = inRange ? (shouldClockIn ? "clockInButton" : "clockOutButton") : "";
 
   const onClockInOut = () => {
     if (!locationInfo) {
@@ -43,10 +46,25 @@ const ClockInButton = ({ clockInHistory, distance, maxDistance, onUpdate }: Prop
   };
 
   return (
-    <button disabled={buttonDisabled} onClick={onClockInOut}>
-      {buttonText}
-    </button>
+    <div className={className}>
+      <button
+        className={buttonClass}
+        disabled={buttonDisabled}
+        onClick={onClockInOut}
+      >
+        {buttonText}
+      </button>
+    </div>
   );
 };
 
-export default ClockInButton;
+const StyledClockInButton = styled(ClockInButton)`
+  .clockInButton {
+    background-color: #009eff;
+  }
+  .clockOutButton {
+    background-color: #ffc300;
+  }
+`;
+
+export default StyledClockInButton;

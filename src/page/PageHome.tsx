@@ -96,18 +96,20 @@ const PageHome = ({ className }: Props) => {
             </div>
           </div>
         </div>
-        <Clock className="clockInPanelUnit" />
+        <div className="clockInClockContainer">
+          <Clock />
+          <ClockInButton
+            clockInHistory={storedHistory}
+            distance={distance}
+            maxDistance={officeSetting?.maxDistance ?? null}
+            onUpdate={onUpdateClockInHistory}
+          />
+        </div>
         <ClockInHistory
-          className="clockInPanelUnit"
+          className="clockInHistoryContainer"
           clockInHistory={storedHistory}
         />
       </div>
-      <ClockInButton
-        clockInHistory={storedHistory}
-        distance={distance}
-        maxDistance={officeSetting?.maxDistance ?? null}
-        onUpdate={onUpdateClockInHistory}
-      />
     </div>
   );
 };
@@ -145,7 +147,13 @@ const StyledPageHome = styled(PageHome)`
         }
       }
     }
-    .clockInPanelUnit {
+    .clockInClockContainer {
+      align-items: center;
+      display: flex;
+      flex: 1 1 0;
+      flex-direction: column;
+    }
+    .clockInHistoryContainer {
       flex: 1 1 0;
     }
   }
