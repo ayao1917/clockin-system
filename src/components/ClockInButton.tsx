@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 
 import { selectLocationInfo } from "../store/location/slice";
 
@@ -14,11 +15,12 @@ interface Props {
 
 const ClockInButton = ({ clockInHistory, distance, maxDistance, onUpdate }: Props) => {
   const locationInfo = useSelector(selectLocationInfo);
+  const { t } = useTranslation();
 
   const shouldClockIn = clockInHistory.length > 0 ? clockInHistory[0].status === "clockOut" : true;
   const inRange = distance && maxDistance && maxDistance > distance;
   const buttonDisabled = !distance || !maxDistance || !inRange;
-  const buttonText = inRange ? (shouldClockIn ? "Clock In" : "Clock Out") : "Out Of Range";
+  const buttonText = inRange ? (shouldClockIn ? t("Clock In") : t("Clock Out")) : t("Out Of Range");
 
   const onClockInOut = () => {
     if (!locationInfo) {

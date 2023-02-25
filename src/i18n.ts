@@ -2,6 +2,7 @@ import i18n from "i18next";
 import detector from "i18next-browser-languagedetector";
 import { initReactI18next } from "react-i18next";
 
+import { LOCAL_STORAGE_KEYS } from "./constants/localStorage";
 import translationENG from "./locales/en.json";
 import translationTW from "./locales/zh-TW.json";
 
@@ -15,10 +16,10 @@ const resources = {
   },
 };
 
-const language = localStorage.getItem("I18N_LANGUAGE");
+const language = localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE);
 
 if (!language) {
-  localStorage.setItem("I18N_LANGUAGE", "tw");
+  localStorage.setItem(LOCAL_STORAGE_KEYS.LANGUAGE, "en");
 }
 
 i18n
@@ -32,7 +33,7 @@ i18n
     },
     // use en if detected lng is not available
     keySeparator: false,
-    lng: localStorage.getItem("I18N_LANGUAGE") || "tw",
+    lng: localStorage.getItem(LOCAL_STORAGE_KEYS.LANGUAGE) || "en",
     resources,
   });
 

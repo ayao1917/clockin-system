@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 
 import Clock from '../components/Clock';
@@ -24,8 +25,9 @@ const PageHome = ({ className }: Props) => {
   const location = useSelector(selectLocation);
   const [officeSetting, setOfficeSetting] = useState<OfficeSetting | null>(null);
   const [storedHistory, setStoredHistory] = useState<ClockInHistoryRecord[]>([]);
+  const { t } = useTranslation();
 
-  const gpsStatus = location ? "GPS is enabled" : "GPS is disabled";
+  const gpsStatus = location ? t("GPS is enabled") : t("GPS is disabled");
   const latitude = location?.latitude ?? "?";
   const longitude = location?.longitude ?? "?";
 
@@ -74,16 +76,16 @@ const PageHome = ({ className }: Props) => {
   return (
     <div className={className}>
       <div className="headerContainer">
-        <Link to="/setting">Settings</Link>
+        <Link to="/setting">{t("Settings")}</Link>
       </div>
       <div className="clockInPanelContainer">
         <div className="locationInfoContainer">
           <h3>{gpsStatus}</h3>
           <div className="locationInfoRow">
             <div className="locationInfoContent">
-              <span>Current position</span>
-              <span>{`Latitude: ${latitude}`}</span>
-              <span>{`Longtitude: ${longitude}`}</span>
+              <span>{t("Current position")}</span>
+              <span>{t("Current latitude", { latitude })}</span>
+              <span>{t("Current longitude", { longitude })}</span>
             </div>
             <div className="locationInfoContent">
               <UserStatus

@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 
 import {
   locationGetAction,
@@ -40,7 +40,10 @@ function* executeLocationGet() {
     yield put(locationGetPending());
     const location: GeolocationPosition = yield call(getLocation);
     const { latitude, longitude } = location.coords;
-    const locationInfo: string | null = yield call(executeGeocodingGet, { latitude, longitude });
+    const locationInfo: string | null = yield call(
+      executeGeocodingGet,
+      { latitude, longitude },
+    );
     yield put(locationGetSuccess({ latitude, longitude }));
     yield put(locationInfoGetSuccess(locationInfo));
   } catch (error: any) {
@@ -49,7 +52,7 @@ function* executeLocationGet() {
 }
 
 function* identitySaga() {
-  yield takeEvery(locationGetAction, executeLocationGet);
+  yield takeLatest(locationGetAction, executeLocationGet);
 }
 
 export default identitySaga;

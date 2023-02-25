@@ -1,7 +1,7 @@
 import flagtw from "../assets/images/tw.svg";
 import flagus from "../assets/images/us.svg";
 
-const languages = {
+export const LANGUAGES = {
   en: {
     flag: flagus,
     label: "English",
@@ -12,4 +12,4 @@ const languages = {
   },
 };
 
-export default languages;
+export const DEFAULT_LANGUAGE = "en";

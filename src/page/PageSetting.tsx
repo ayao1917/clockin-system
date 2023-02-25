@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import styled from "styled-components";
 
 import { LOCAL_STORAGE_KEYS } from "../constants/localStorage";
@@ -18,6 +19,7 @@ const PageSetting = ({ className }: Props) => {
   const [clockinRange, setClockinRange] = useState(0);
   const [latitude, setLatitude] = useState("0");
   const [longitude, setLongitude] = useState("0");
+  const { t } = useTranslation();
 
   useEffect(() => {
     const storedDataString = localStorage.getItem(LOCAL_STORAGE_KEYS.OFFICE_SETTING);
@@ -62,12 +64,12 @@ const PageSetting = ({ className }: Props) => {
 
     // TODO: Add form validation here
     if (latitudeNumber < -90 || latitudeNumber > 90) {
-      alert("Invalid latitude");
+      alert(t("Invalid latitude"));
       return;
     }
 
     if (longitudeNumber < -180 || longitudeNumber > 180) {
-      alert("Invalid longitude");
+      alert(t("Invalid longitude"));
       return;
     }
 
@@ -78,21 +80,21 @@ const PageSetting = ({ className }: Props) => {
     };
 
     localStorage.setItem(LOCAL_STORAGE_KEYS.OFFICE_SETTING, JSON.stringify(dataToStore));
-    alert("Setting saved");
+    alert(t("Setting saved"));
   };
 
   return (
     <div className={className}>
       <div className="headerContainer">
-        <Link to="/">Home</Link>
+        <Link to="/">{t("Home")}</Link>
       </div>
-      <h2>Settings</h2>
+      <h2>{t("Settings")}</h2>
       <form className="settingForm" onSubmit={onFormSubmit}>
         <div className="formGroup">
-          <h3 className="formGroupHeader">Set clockIn range</h3>
+          <h3 className="formGroupHeader">{t("Set clockIn range")}</h3>
           <hr className="divider" />
           <div className="inputGroup">
-            <label htmlFor="clockinRange">Range in KM</label>
+            <label htmlFor="clockinRange">{t("Range in KM")}</label>
             <input
               id="clockinRange"
               max="20"
@@ -101,14 +103,14 @@ const PageSetting = ({ className }: Props) => {
               type="range"
               value={clockinRange}
             />
-            <span>{`${clockinRange} KM`}</span>
+            <span>{t("Range value", { clockinRange })}</span>
           </div>
         </div>
         <div className="formGroup">
-          <h3 className="formGroupHeader">Set office location</h3>
+          <h3 className="formGroupHeader">{t("Set office location")}</h3>
           <hr className="divider" />
           <div className="inputGroup">
-            <label htmlFor="latitude">latitude</label>
+            <label htmlFor="latitude">{t("Latitude")}</label>
             <input
               id="latitude"
               onChange={onLatitudeChange}
@@ -117,7 +119,7 @@ const PageSetting = ({ className }: Props) => {
             />
           </div>
           <div className="inputGroup">
-            <label htmlFor="longitude">longitude</label>
+            <label htmlFor="longitude">{t("Longitude")}</label>
             <input
               id="longitude"
               onChange={onLongitudeChange}
@@ -127,7 +129,7 @@ const PageSetting = ({ className }: Props) => {
           </div>
         </div>
         <div className="formFooter">
-          <input className="submitButtom" type="submit" value={"Save"} />
+          <input className="submitButtom" type="submit" value={t("Save") ?? "Save"} />
         </div>
       </form>
     </div>

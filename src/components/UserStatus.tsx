@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 
 import type { OfficeSetting } from "../page/PageSetting";
 import type { UserLocation } from "../store/location/types";
@@ -10,10 +11,12 @@ interface Props {
 }
 
 const UserStatus = ({ distance, location, settings }: Props) => {
+  const { t } = useTranslation();
+
   if (!location) {
     return (
       <>
-        <span>Please enable</span>
+        <span>{t("Please enable")}</span>
         <span>GPS</span>
       </>
     );
@@ -22,8 +25,8 @@ const UserStatus = ({ distance, location, settings }: Props) => {
   if (!settings?.latitude || !settings?.longitude || !settings?.maxDistance || !distance) {
     return (
       <>
-        <span>Office</span>
-        <span>Not set</span>
+        <span>{t("Office")}</span>
+        <span>{t("Not set")}</span>
       </>
     );
   }
@@ -31,8 +34,8 @@ const UserStatus = ({ distance, location, settings }: Props) => {
   if (distance <= settings.maxDistance) {
     return (
       <>
-        <span>You</span>
-        <span>Arrived</span>
+        <span>{t("You")}</span>
+        <span>{t("Arrived")}</span>
       </>
     );
   }
@@ -41,8 +44,8 @@ const UserStatus = ({ distance, location, settings }: Props) => {
 
   return (
     <>
-      <span>{`You are ${roundDistance} km`}</span>
-      <span>away from office.</span>
+      <span>{t("You are distance", { roundDistance })}</span>
+      <span>{t("Away from office")}</span>
     </>
   );
 };

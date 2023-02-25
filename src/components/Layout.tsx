@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import Header from "./Header";
+
 interface Props {
   children: React.ReactElement;
   className?: string;
@@ -9,6 +11,7 @@ interface Props {
 const Layout = ({ children, className }: Props) => {
   return (
     <div className={className}>
+      <Header />
       {children}
     </div>
   );
