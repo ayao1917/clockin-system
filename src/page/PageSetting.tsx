@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { LOCAL_STORAGE_KEYS } from "../constants/localStorage";
 
-interface OfficeSetting {
+export interface OfficeSetting {
   latitude: number;
   longitude: number;
   maxDistance: number;

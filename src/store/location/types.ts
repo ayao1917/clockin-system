@@ -7,4 +7,5 @@ export interface State {
   location: UserLocation | null;
   locationGetError: string | null;
   locationGetPending: boolean;
+  locationInfo: string | null;
 }

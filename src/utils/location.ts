@@ -37,25 +37,32 @@ export function getLocation() {
 }
 
 // Haversine Distance Formula
-export function calculateDistance(location1: UserLocation, location2: UserLocation): number {
+export function calculateDistance(
+  location1: UserLocation,
+  location2: UserLocation,
+): number {
   const { latitude: lat1, longitude: lon1 } = location1;
   const { latitude: lat2, longitude: lon2 } = location2;
 
-  const R = 6371; // km
-  const x1 = lat2 - lat1;
-  const dLat = toRad(x1);
-  const x2 = lon2 - lon1;
-  const dLon = toRad(x2);
+  const RADIUS_OF_EARTH_IN_KM = 6371;
+
+  const dLat = distance(lat2, lat1);
+  const dLon = distance(lon2, lon1);
+
+  // Haversine Formula
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+    Math.pow(Math.sin(dLat / 2), 2) +
+    Math.pow(Math.sin(dLon / 2), 2) * Math.cos(toRadian(lat1)) * Math.cos(toRadian(lat2));
+  const c = 2 * Math.asin(Math.sqrt(a));
+
+  const finalDistance = RADIUS_OF_EARTH_IN_KM * c;
+  return finalDistance;
 }
 
-function toRad(value: number) {
-  return (value * Math.PI) / 180;
+function toRadian(angle: number) {
+  return (Math.PI / 180) * angle;
+}
+
+function distance(a: number, b: number) {
+  return (Math.PI / 180) * (a - b);
 }

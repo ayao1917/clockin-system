@@ -8,6 +8,7 @@ const initialState: State = {
   location: null,
   locationGetError: null,
   locationGetPending: false,
+  locationInfo: null,
 };
 
 export const locationSlice = createSlice({
@@ -28,6 +29,9 @@ export const locationSlice = createSlice({
       state.locationGetError = null;
       state.location = action.payload;
     },
+    locationInfoGetSuccess: (state, action: PayloadAction<string | null>) => {
+      state.locationInfo = action.payload;
+    }
   },
 });
 
@@ -35,11 +39,16 @@ export const {
   locationGetError,
   locationGetPending,
   locationGetSuccess,
+  locationInfoGetSuccess,
 } = locationSlice.actions;
 
 // Selectors
 export const selectLocation = (state: RootState): UserLocation | null => {
   return state.location.location;
+};
+
+export const selectLocationInfo = (state: RootState): string | null => {
+  return state.location.locationInfo;
 };
 
 export default locationSlice.reducer;
