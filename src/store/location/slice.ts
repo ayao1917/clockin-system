@@ -4,7 +4,7 @@ import type { State, UserLocation } from "./types";
 import type { RootState } from "..";
 
 // Define the initial state using that type
-const initialState: State = {
+export const initialState: State = {
   location: null,
   locationGetError: null,
   locationGetPending: false,
@@ -49,6 +49,14 @@ export const selectLocation = (state: RootState): UserLocation | null => {
 
 export const selectLocationInfo = (state: RootState): string | null => {
   return state.location.locationInfo;
+};
+
+export const selectLocationGetPending = (state: RootState): boolean => {
+  return state.location.locationGetPending;
+};
+
+export const selectLocationGetError = (state: RootState): string | null => {
+  return state.location.locationGetError;
 };
 
 export default locationSlice.reducer;

@@ -21,7 +21,9 @@ const ClockInButton = ({ className, clockInHistory, distance, maxDistance, onUpd
 
   const shouldClockIn = clockInHistory.length > 0 ? clockInHistory[0].status === "clockOut" : true;
   const inRange = distance && maxDistance && maxDistance > distance;
-  const buttonDisabled = !distance || !maxDistance || !inRange;
+  const distanceNotSet = distance === null || distance === undefined;
+  const maxDistanceNotSet = maxDistance === null || maxDistance === undefined;
+  const buttonDisabled = distanceNotSet || maxDistanceNotSet || !inRange;
   const buttonText = inRange ? (shouldClockIn ? t("Clock In") : t("Clock Out")) : t("Out Of Range");
   const buttonClass = inRange ? (shouldClockIn ? "clockInButton" : "clockOutButton") : "";
 

@@ -15,7 +15,7 @@ import { getLocation } from "../../utils/location";
 import type { AxiosResponse } from "axios";
 import type { UserLocation } from "./types";
 
-function* executeGeocodingGet(location: UserLocation) {
+export function* executeGeocodingGet(location: UserLocation): Saga<string | null> {
   const { latitude, longitude } = location;
   const accessToken = "pk.eyJ1IjoiaWFtYXBhcms4OSIsImEiOiJjanlpZmF5c3AwOXJzM2NxaDQzNWhiaDRmIn0.C-e2EpmyDtsqPbu9FjJz5Q";
   try {
@@ -30,12 +30,11 @@ function* executeGeocodingGet(location: UserLocation) {
 
     return null;
   } catch (error: any) {
-    console.log(error);
     return null;
   }
 }
 
-function* executeLocationGet() {
+export function* executeLocationGet(): Saga<void> {
   try {
     yield put(locationGetPending());
     const location: GeolocationPosition = yield call(getLocation);
@@ -51,8 +50,8 @@ function* executeLocationGet() {
   }
 }
 
-function* identitySaga() {
+function* locationSaga() {
   yield takeLatest(locationGetAction, executeLocationGet);
 }
 
-export default identitySaga;
+export default locationSaga;

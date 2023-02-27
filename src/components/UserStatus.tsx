@@ -22,7 +22,11 @@ const UserStatus = ({ distance, location, settings }: Props) => {
     );
   }
 
-  if (!settings?.latitude || !settings?.longitude || !settings?.maxDistance || !distance) {
+  const latitudeNotSet = settings?.latitude === null || settings?.latitude === undefined;
+  const longitudeNotSet = settings?.longitude === null || settings?.longitude === undefined;
+  const maxDistanceNotSet = settings?.maxDistance === null || settings?.maxDistance === undefined;
+  const distanceNotSet = distance === null || distance === undefined;
+  if (latitudeNotSet || longitudeNotSet || maxDistanceNotSet || distanceNotSet) {
     return (
       <>
         <span>{t("Office")}</span>

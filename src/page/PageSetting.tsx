@@ -60,7 +60,6 @@ const PageSetting = ({ className }: Props) => {
     e.preventDefault();
     const latitudeNumber = parseFloat(latitude);
     const longitudeNumber = parseFloat(longitude);
-    console.log(latitudeNumber, longitudeNumber);
 
     // TODO: Add form validation here
     if (latitudeNumber < -90 || latitudeNumber > 90) {
@@ -113,6 +112,7 @@ const PageSetting = ({ className }: Props) => {
             <label htmlFor="latitude">{t("Latitude")}</label>
             <input
               id="latitude"
+              name="latitude"
               onChange={onLatitudeChange}
               type="number"
               value={latitude}
@@ -122,6 +122,7 @@ const PageSetting = ({ className }: Props) => {
             <label htmlFor="longitude">{t("Longitude")}</label>
             <input
               id="longitude"
+              name="longitude"
               onChange={onLongitudeChange}
               type="number"
               value={longitude}
