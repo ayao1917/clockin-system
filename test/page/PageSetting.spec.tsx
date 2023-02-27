@@ -25,7 +25,7 @@ jest.mock("react-i18next", () => ({
 }));
 
 describe("Component: PageSetting", () => {
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     localStorage.setItem(LOCAL_STORAGE_KEYS.OFFICE_SETTING, JSON.stringify(mockUserSetting));
     const { getByText } =  render(
       <Router>
@@ -42,9 +42,9 @@ describe("Component: PageSetting", () => {
   });
 
   it("should store form value", () => {
-    jest.spyOn(window, 'alert');
+    jest.spyOn(window, "alert");
     window.alert = jest.fn();
-    jest.spyOn(Storage.prototype, 'setItem');
+    jest.spyOn(Storage.prototype, "setItem");
     Storage.prototype.setItem = jest.fn();
     localStorage.setItem(LOCAL_STORAGE_KEYS.OFFICE_SETTING, JSON.stringify(mockUserSetting));
     const { getByRole, getByText } =  render(

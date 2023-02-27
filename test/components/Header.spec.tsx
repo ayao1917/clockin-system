@@ -16,7 +16,7 @@ jest.mock(
 );
 
 describe("Component: Header", () => {
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     const { getByTestId } =  render(<Header />);
     expect(getByTestId("language-dropdown")).toBeInTheDocument();
   });

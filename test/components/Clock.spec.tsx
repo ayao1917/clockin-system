@@ -5,7 +5,7 @@ import { render } from "@testing-library/react";
 import Clock from "../../src/components/Clock";
 
 describe("Component: Clock", () => {
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     const now = new Date();
     const { getByText } =  render(<Clock />);
     const hour = (now.getHours() % 12) || 12;

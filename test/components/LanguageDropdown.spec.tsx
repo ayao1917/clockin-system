@@ -17,14 +17,14 @@ jest.mock(
 );
 
 describe("Component: LanguageDropdown", () => {
-  it('should render correctly', () => {
+  it("should render correctly", () => {
     const { getByRole } =  render(<LanguageDropdown />);
 
     expect(getByRole("combobox")).toHaveValue("en");
   });
 
   it("should change language correctly", () => {
-    jest.spyOn(Storage.prototype, 'setItem');
+    jest.spyOn(Storage.prototype, "setItem");
     Storage.prototype.setItem = jest.fn();
     const { getByRole } =  render(<LanguageDropdown />);
 

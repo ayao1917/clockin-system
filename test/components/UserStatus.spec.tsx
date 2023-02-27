@@ -17,7 +17,7 @@ jest.mock("react-i18next", () => ({
 }));
 
 describe("Component: UserStatus", () => {
-  it('should render `Please enable GPS` if location is null', () => {
+  it("should render `Please enable GPS` if location is null", () => {
     const { getByText } =  render(
       <UserStatus
         distance={null}
@@ -29,7 +29,7 @@ describe("Component: UserStatus", () => {
     expect(getByText("GPS")).toBeInTheDocument();
   });
 
-  it('should render `Office not set` if location is null', () => {
+  it("should render `Office not set` if location is null", () => {
     const { getByText } =  render(
       <UserStatus
         distance={null}
@@ -41,7 +41,7 @@ describe("Component: UserStatus", () => {
     expect(getByText("Not set")).toBeInTheDocument();
   });
 
-  it('should render `You arrived` if user in range', () => {
+  it("should render `You arrived` if user in range", () => {
     const { getByText } =  render(
       <UserStatus
         distance={5}
@@ -53,7 +53,7 @@ describe("Component: UserStatus", () => {
     expect(getByText("Arrived")).toBeInTheDocument();
   });
 
-  it('should render distance info if out of range', () => {
+  it("should render distance info if out of range", () => {
     const { getByText } =  render(
       <UserStatus
         distance={11}
